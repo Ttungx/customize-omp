@@ -1,0 +1,6 @@
+theme:
+  dark: titanium
+modelRoles:
+  default: anthropic/claude-sonnet-4
+tools:
+  approvalMode: always-ask

@@ -1,0 +1,37 @@
+# Local agent configuration and runtime state
+/.omp/
+/.pi/
+/.agents/
+/config.yml
+/settings.json
+/models.yml
+/mcp.json
+auth.json
+mcp-auth.json
+*.db
+*.db-shm
+*.db-wal
+
+# Credentials and local overrides
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Evaluation output and temporary files
+*-workspace/
+/outputs/
+*.log
+*.tmp
+*.bak
+
+# Python and editors
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

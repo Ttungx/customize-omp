@@ -1,0 +1,47 @@
+{
+  "skill_name": "customize-omp",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm on omp 18.14.0. For this repository only, set the default model role to openai/gpt-5.2. The attached files are copies of my global config and the repo's project config. Update a copy of the project config in your output sandbox only, preserve all existing project settings, and explain why `omp config set` is or is not the right command for a project-only setting. Do not touch the real home directory or run a command that writes to it.",
+      "expected_output": "An updated project config fixture with only the project model role changed, plus a concise explanation of scope, precedence, and when the active model will change.",
+      "files": [
+        "evals/fixtures/model-scope/global-config.yml",
+        "evals/fixtures/model-scope/project-config.yml"
+      ],
+      "expectations": [
+        "The project config copy contains modelRoles.default set to openai/gpt-5.2 and preserves its existing tools.approvalMode and memory settings.",
+        "The global config fixture is left unchanged.",
+        "The response explains that omp config set writes the global config and that a project-only override belongs in the project's .omp/config.yml.",
+        "The response explains that changing a default role does not necessarily switch the model in an already-running session."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add a remote Notion MCP server to the attached project's .omp/mcp.json. Use Streamable HTTP and the NOTION_TOKEN environment variable; never put a real token in the file. Work on a copy under your output sandbox only, preserve the existing filesystem server, and tell me how to reload and verify the new server in OMP.",
+      "expected_output": "Valid updated MCP JSON with the existing server preserved, a remote HTTP server using an environment-backed Authorization value, and OMP-specific verification steps.",
+      "files": [
+        "evals/fixtures/mcp/project-mcp.json"
+      ],
+      "expectations": [
+        "The output JSON parses and keeps the existing filesystem server configuration.",
+        "The Notion server uses type http with the official Notion MCP URL and an Authorization header that references NOTION_TOKEN without a hard-coded token.",
+        "The response gives OMP verification steps including /mcp reload and /mcp list or /mcp test."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a reusable release checklist for OMP in the attached scratch project. I want the model to select the full procedure when the task is about preparing a software release, but I don't want it injected as permanent repository context on every unrelated task. Create the right OMP resource at the right project path with useful skill frontmatter and a concise checklist. Work only in a copy under your output sandbox and explain how I can invoke or verify it.",
+      "expected_output": "A project-scoped OMP skill at .omp/skills/release-check/SKILL.md, with routing metadata and actionable release validation steps, plus an explanation of how OMP discovers and invokes it.",
+      "files": [
+        "evals/fixtures/release-skill/README.md"
+      ],
+      "expectations": [
+        "The created file is .omp/skills/release-check/SKILL.md in the output sandbox.",
+        "The skill has valid frontmatter with explicit name and a description that routes release-preparation tasks.",
+        "The body contains a concrete release checklist and does not create a permanent AGENTS.md or RULES.md instruction.",
+        "The response explains OMP skill discovery and gives a manual invocation or verification route."
+      ]
+    }
+  ]
+}
